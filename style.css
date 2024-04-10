@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,15 +7,15 @@
 }
 
 :root {
-    --primary-background: #121212;
-    --card-backgorund: #242424;
-    --left-sidebar-width: 35.3rem;
+    --primary-background: #000000;
+    --secondary-background: #121212;
+    --left-sidebar-width: 25vw;
     --text-color: #ffffff;
 }
 
 body {
-
-    background-color: black;
+    font-family: "Roboto Condensed", sans-serif;
+    background: var(--primary-background);
 }
 
 
@@ -28,7 +30,7 @@ body {
 
 .left .home {
     margin: 10px 5px;
-    background: var(--primary-background);
+    background: var(--secondary-background);
     color: var(--text-color);
     display: flex;
     flex-direction: column;
@@ -53,7 +55,7 @@ body {
     width: 2rem;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 1rem;
     filter: invert(1);
 
 }
@@ -63,7 +65,7 @@ body {
     width: 2rem;
     display: flex;
     align-items: center;
-    gap: .5rem;
+    gap: 1rem;
     filter: invert(1);
 }
 
@@ -72,7 +74,57 @@ body {
     filter: invert(1);
 }
 
-
 .right {
     width: 75vw;
+}
+
+.library {
+    background-color: var(--secondary-background);
+    margin: 10px 5px;
+    border-radius: 6px;
+    height: 70vh;
+}
+
+.library-card {
+    gap: 10px;
+    padding: 20px;
+    filter: invert(1);
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+.library-card img {
+    width: 24px;
+    transition: .40s all ease-in-out;
+
+
+}
+
+.plus-icon:hover {
+    cursor: pointer;
+    scale: 1.06;
+    transition: .40s all ease-in-out;
+}
+
+.library-card .library-text {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.left-footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: 12px;
+    line-height: 20px;
+    padding: 15px;
+    gap: 10px;
+    position: relative;
+    top: 18rem;
+}
+
+.left-footer a {
+    text-decoration: none;
+    color: rgb(179, 179, 179);
 }
