@@ -5,7 +5,10 @@
 }
 
 :root {
-    --primary-background: #212121;
+    --primary-background: #121212;
+    --card-backgorund: #242424;
+    --left-sidebar-width: 35.3rem;
+    --text-color: #ffffff;
 }
 
 body {
@@ -19,14 +22,14 @@ body {
 }
 
 .left {
-    width: 25vw;
-    /* border: 2px solid white; */
+    width: var(--left-sidebar-width);
+
 }
 
 .left .home {
     margin: 10px 5px;
     background: var(--primary-background);
-    color: white;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     border-radius: 6px;
@@ -38,17 +41,21 @@ body {
     filter: invert(1);
 }
 
+.logo img:hover {
+    cursor: pointer;
+}
+
+.home-search-wrapper {
+    margin: 0 17px;
+}
+
 .home-logo {
     width: 2rem;
     display: flex;
     align-items: center;
     gap: .5rem;
     filter: invert(1);
-    margin-left: 17px;
-}
 
-.home-logo span {
-    filter: invert(1);
 }
 
 .search-logo {
@@ -58,12 +65,13 @@ body {
     align-items: center;
     gap: .5rem;
     filter: invert(1);
-    margin-left: 17px;
 }
 
+.home-logo span,
 .search-logo span {
     filter: invert(1);
 }
+
 
 .right {
     width: 75vw;
