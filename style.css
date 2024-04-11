@@ -11,6 +11,7 @@
     --secondary-background: #121212;
     --left-sidebar-width: 25vw;
     --text-color: #ffffff;
+    --nav-color: #090909;
 }
 
 body {
@@ -127,4 +128,46 @@ body {
 .left-footer a {
     text-decoration: none;
     color: rgb(179, 179, 179);
+}
+
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 20px;
+    margin: 10px 5px;
+    border-radius: 6px;
+}
+
+.arrows img {
+    width: 20px;
+    filter: invert(1);
+}
+
+.buttons button {
+    padding: 15px;
+    border-radius: 35px;
+    font-size: 15px;
+    border: none;
+    width: 100px;
+    margin: 0 10px 0 0;
+    font-weight: 700;
+
+}
+
+.buttons button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+
+}
+
+#signup {
+    background-color: #3a3939;
+    color: #878484;
+}
+
+#login {
+    background-color: #ffffff;
+    color: #000000;
 }
