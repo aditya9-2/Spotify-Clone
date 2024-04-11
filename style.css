@@ -10,6 +10,7 @@
     --primary-background: #000000;
     --secondary-background: #121212;
     --left-sidebar-width: 25vw;
+    --right-sidebar-width: 75vw;
     --text-color: #ffffff;
     --nav-color: #090909;
 }
@@ -76,8 +77,9 @@ body {
 }
 
 .right {
-    width: 75vw;
+    width: var(--right-sidebar-width);
     color: var(--text-color);
+    position: relative;
 }
 
 .library {
@@ -148,6 +150,10 @@ body {
     filter: invert(1);
 }
 
+#language:hover {
+    cursor: pointer;
+}
+
 .navBar {
     display: flex;
     justify-content: space-between;
@@ -199,6 +205,9 @@ body {
     grid-template-columns: repeat(4, 1fr);
     margin: 20px 10px;
     gap: 10px;
+    max-height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .card {
@@ -210,6 +219,8 @@ body {
     line-height: 20px;
     width: 190px;
     position: relative;
+    overflow: hidden;
+    /* Ensure play button animation stays within card boundaries */
 }
 
 .card img {
@@ -219,8 +230,7 @@ body {
     margin: 12px;
 }
 
-.card:hover,
-.card img:hover {
+.card:hover {
     background-color: #131212;
     cursor: pointer;
 }
@@ -240,15 +250,24 @@ body {
     top: 110px;
     left: 108px;
     opacity: 0;
+    transition: opacity 0.3s ease;
+    /* Smooth transition for opacity */
 }
 
-.play img:hover {
+.card:hover .play img {
+    opacity: 1;
     animation: .5s alternate toggle forwards;
 }
 
-
-
-
+.play-bar {
+    position: absolute;
+    /* top: 9rem; */
+    bottom: 12px;
+    background-color: rgb(3, 141, 35);
+    width: 100%;
+    padding: 20px;
+    border-radius: 6px;
+}
 
 
 
@@ -259,7 +278,6 @@ body {
 
 
 @keyframes toggle {
-
     0% {
         opacity: 0;
         top: 130px;
