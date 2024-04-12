@@ -162,7 +162,7 @@ body {
     text-overflow: ellipsis;
 }
 
-.song-info p {
+.song-info div {
     font-size: 12px;
 }
 
@@ -256,6 +256,8 @@ body {
 
 .Popular-artist {
     padding: 16px;
+    height: 65vh;
+    max-height: 70vh;
 }
 
 .card-container {
