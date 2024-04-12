@@ -12,7 +12,7 @@
     --left-sidebar-width: 25vw;
     --right-sidebar-width: 75vw;
     --text-color: #ffffff;
-    --nav-color: #090909;
+    --nav-color: #101010;
 }
 
 body {
@@ -23,6 +23,14 @@ body {
 
 .container {
     display: flex;
+}
+
+.line {
+    padding: .5px;
+    background-color: #878484;
+    opacity: 0.4;
+    margin: 0px 10px;
+    border-radius: 10px;
 }
 
 .left {
@@ -102,8 +110,6 @@ body {
 .library-card img {
     width: 24px;
     transition: .40s all ease-in-out;
-
-
 }
 
 .plus-icon:hover {
@@ -117,6 +123,55 @@ body {
     font-weight: 700;
 }
 
+.songLists {
+    margin: 0 20px 10px 20px;
+    max-height: 27vh;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.songLists ul {
+    color: var(--text-color);
+}
+
+.songLists ul li img {
+    width: 35px;
+    filter: invert(1);
+}
+
+.songLists ul li {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    align-content: first baseline;
+    line-height: 19px;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(130, 132, 132, 0.444);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 12px;
+}
+
+.song-info {
+    padding-right: 58px;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-info p {
+    font-size: 12px;
+}
+
+.library-play-icon img {
+    width: 30px;
+    cursor: pointer;
+    filter: invert(1);
+}
+
 .left-footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -124,8 +179,8 @@ body {
     line-height: 20px;
     padding: 15px;
     gap: 10px;
-    position: relative;
-    top: 12rem;
+    margin: 25px 0;
+
 }
 
 .left-footer a {
@@ -162,7 +217,9 @@ body {
     padding: 20px;
     margin: 10px 5px;
     border-radius: 6px;
+    height: 60px;
 }
+
 
 .arrows img {
     width: 20px;
@@ -183,12 +240,13 @@ body {
 .buttons button:hover {
     cursor: pointer;
     opacity: 0.8;
+    scale: 1.05;
 
 }
 
 #signup {
-    background-color: #3a3939;
-    color: #878484;
+    background-color: transparent;
+    color: #a7a7a7;
 }
 
 #login {
@@ -220,7 +278,7 @@ body {
     width: 190px;
     position: relative;
     overflow: hidden;
-    /* Ensure play button animation stays within card boundaries */
+    /* overflow: hidden will Eensure play button animation stays within card boundaries */
 }
 
 .card img {
@@ -261,12 +319,25 @@ body {
 
 .play-bar {
     position: absolute;
-    /* top: 9rem; */
     bottom: 12px;
-    background-color: rgb(3, 141, 35);
     width: 100%;
-    padding: 20px;
     border-radius: 6px;
+    background-color: var(--secondary-background);
+    padding: 20px 0;
+}
+
+.song-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+}
+
+.song-buttons img {
+    width: 30px;
+    cursor: pointer;
+    filter: invert(1);
 }
 
 
