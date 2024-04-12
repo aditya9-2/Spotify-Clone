@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify | Clone</title>
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -43,8 +44,15 @@
                     <span class="library-text">Your library</span>
 
                     <img class="plus-icon" src="/svg/plus.svg" alt="Plus">
+
                 </div>
 
+                <div class="songLists">
+
+                    <ul></ul>
+                </div>
+
+                <div class="line"></div>
                 <div class="left-footer">
 
                     <div>
@@ -144,13 +152,28 @@
             </div>
 
             <div class="play-bar">
-                Plaing
+
+                <div class="song-information">
+
+                </div>
+
+                <div class="song-buttons">
+                    <img src="svg/song-previoous.svg" alt="song-previoous">
+                    <img src="svg/song-play.svg" alt="song-play">
+                    <img src="svg/song-next.svg" alt="song-next">
+                </div>
+
+                <div class="song-time">
+
+                </div>
+
             </div>
 
         </div>
 
     </div>
 
+    <script src="app.js"></script>
 </body>
 
 </html>
