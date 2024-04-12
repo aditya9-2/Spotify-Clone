@@ -1,4 +1,4 @@
-
+let currentSong;
 
 const getSongs = async () => {
 
@@ -24,7 +24,14 @@ const getSongs = async () => {
     return tracks;
 };
 
+const playMusic = (audioTrack) => {
+    const audio = new Audio("/songs/" + audioTrack);
+    // audio.play();
+
+};
+
 const handleSongs = async () => {
+
 
     const songList = await getSongs();
     console.log(songList);
@@ -35,26 +42,30 @@ const handleSongs = async () => {
 
         UlList.innerHTML = UlList.innerHTML + `
 
-        
          <li>
 
             <img src="svg/music.svg" alt="music-svg">
             <div class="song-info">
-                <p>${song.replaceAll('%20', ' ')}</p>
+                <div>${song.replaceAll('%20', ' ')}</div>
+                
             </div>
 
             <div class="library-play-icon">
                 <img src="svg/song-play.svg" alt="song-play">
             </div>
 
-        </li>
-        
-        `;
+        </li> `;
 
     }
 
-    const audio = new Audio(songList[0]);
-    // audio.play();
+    const liSong = document.querySelector('.songLists');
+    Array.from(liSong.getElementsByTagName('li')).forEach((e) => {
+
+        e.addEventListener('click', (element) => {
+            const play = e.querySelector('.song-info').firstElementChild.innerHTML.trim();
+            playMusic(play);
+        });
+    });
 
 };
 
