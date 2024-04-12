@@ -29,11 +29,27 @@ const handleSongs = async () => {
     const songList = await getSongs();
     console.log(songList);
 
-    const OlList = document.querySelector('.songLists').getElementsByTagName('ol')[0];
+    const UlList = document.querySelector('.songLists').getElementsByTagName('ul')[0];
 
     for (const song of songList) {
 
-        OlList.innerHTML = OlList.innerHTML + `<li>${song}</li>`;
+        UlList.innerHTML = UlList.innerHTML + `
+
+        
+         <li>
+
+            <img src="svg/music.svg" alt="music-svg">
+            <div class="song-info">
+                <p>${song.replaceAll('%20', ' ')}</p>
+            </div>
+
+            <div class="library-play-icon">
+                <img src="svg/song-play.svg" alt="song-play">
+            </div>
+
+        </li>
+        
+        `;
 
     }
 
