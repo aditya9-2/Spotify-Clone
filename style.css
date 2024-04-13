@@ -134,7 +134,7 @@ body {
     color: var(--text-color);
 }
 
-.songLists ul li img {
+.songLists ul li .music-icon {
     width: 35px;
     filter: invert(1);
 }
@@ -169,7 +169,7 @@ body {
 .library-play-icon img {
     width: 30px;
     cursor: pointer;
-    filter: invert(1);
+
 }
 
 .left-footer {
