@@ -11,6 +11,7 @@ const seekbar = document.querySelector('.seek-bar');
 const seekbarCircle = document.querySelector('.circle');
 const hamburger = document.querySelector('#hamburger-img');
 const closeBtn = document.querySelector('#close-icon');
+const volumeRange = document.querySelector('.range');
 
 const getSongs = async () => {
 
@@ -139,6 +140,12 @@ const handleCloseButton = () => {
 
 };
 
+const handleVolume = (event) => {
+
+    currentSong.volume = parseInt(event.target.value) / 100;
+
+};
+
 
 const handleSongs = async () => {
 
@@ -188,6 +195,7 @@ const handleSongs = async () => {
     seekbar.addEventListener('click', moveSeekbar);
     hamburger.addEventListener('click', handleHamburger);
     closeBtn.addEventListener('click', handleCloseButton);
+    volumeRange.getElementsByTagName('input')[0].addEventListener('change', handleVolume);
 
 };
 
