@@ -395,6 +395,29 @@ body {
     text-overflow: ellipsis;
 }
 
+.volumeSongTimeWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.volume {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.volume img {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.range input {
+    filter: invert(1);
+}
+
+.range input:hover {
+    cursor: pointer;
+}
 
 /* Media Queries */
 
@@ -520,7 +543,33 @@ body {
     .play img {
         display: none;
     }
+
+    .volumeSongTimeWrapper {
+        flex-direction: column;
+        flex-direction: column;
+        padding: -8px;
+        position: relative;
+        top: 14px;
+        left: 9px;
+
+    }
+
+    .volume img {
+        position: relative;
+        right: 37px;
+        gap: 11px;
+        margin-top: 0px;
+        top: 11px;
+    }
+
+    .range input {
+        width: 50px;
+        position: absolute;
+        left: 28px;
+        top: 31px;
+    }
 }
+
 
 
 
