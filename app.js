@@ -1,5 +1,7 @@
 let currentSong = new Audio();
 let songList;
+let currentFolder;
+
 
 const leftSide = document.querySelector('.left');
 const togglePrevious = document.getElementById('sprevious');
@@ -12,10 +14,13 @@ const seekbarCircle = document.querySelector('.circle');
 const hamburger = document.querySelector('#hamburger-img');
 const closeBtn = document.querySelector('#close-icon');
 const volumeRange = document.querySelector('.range');
+const card = document.getElementsByClassName('card');
 
-const getSongs = async () => {
 
-    const songs = await fetch('http://127.0.0.1:5500/songs/');
+getSongs = async (folder) => {
+
+    currentFolder = folder;
+    const songs = await fetch(`http://127.0.0.1:5500/${folder}`);
     const response = await songs.text();
 
     const div = document.createElement('div');
@@ -23,7 +28,7 @@ const getSongs = async () => {
 
     const as = div.getElementsByTagName('a');
 
-    let tracks = [];
+    songList = [];
 
     for (let index = 0; index < as.length; index++) {
 
@@ -31,15 +36,56 @@ const getSongs = async () => {
 
         if (element.href.endsWith('.mp3')) {
 
-            tracks.push(element.href.split('/songs/')[1]);
+            songList.push(element.href.split(`/${folder}/`)[1]);
         }
     }
-    return tracks;
+
+
+    const UlList = document.querySelector('.songLists').getElementsByTagName('ul')[0];
+    UlList.innerHTML = "";
+
+    for (const song of songList) {
+
+        UlList.innerHTML = UlList.innerHTML + `
+
+         <li>
+
+            <img class="music-icon" src="svg/music.svg" alt="music-svg">
+            <div class="song-info">
+                <div>${song.replaceAll('%20', ' ')}</div>
+                
+            </div>
+
+            <div class="library-play-icon">
+                <img class="library-play" src="svg/play-button.svg" alt="song-play">
+            </div>
+
+        </li> `;
+
+    }
+
+
+
+    const liSong = document.querySelector('.songLists');
+
+    Array.from(liSong.getElementsByTagName('li')).forEach((e) => {
+
+        e.addEventListener('click', () => {
+
+            const play = e.querySelector('.song-info').firstElementChild.innerHTML.trim();
+            playMusic(play);
+
+        });
+    });
+
+
+    return songList;
 };
 
-const playMusic = (audioTrack, pause = false) => {
 
-    currentSong.src = "/songs/" + audioTrack;
+playMusic = (audioTrack, pause = false) => {
+
+    currentSong.src = `/${currentFolder}/` + audioTrack;
 
     if (!pause) {
 
@@ -54,7 +100,8 @@ const playMusic = (audioTrack, pause = false) => {
 
 };
 
-const handlePlayPause = () => {
+
+handlePlayPause = () => {
 
     if (currentSong.paused) {
 
@@ -70,7 +117,7 @@ const handlePlayPause = () => {
 };
 
 
-const handlePreviousSong = () => {
+handlePreviousSong = () => {
 
     let index = songList.indexOf(currentSong.src.split('/').slice(-1)[0]);
 
@@ -81,7 +128,8 @@ const handlePreviousSong = () => {
 
 };
 
-const handleNextSong = () => {
+
+handleNextSong = () => {
 
     currentSong.pause();
     let index = songList.indexOf(currentSong.src.split('/').slice(-1)[0]);
@@ -94,7 +142,8 @@ const handleNextSong = () => {
 
 };
 
-const secondsToMinutesSeconds = (seconds) => {
+
+secondsToMinutesSeconds = (seconds) => {
 
     if (isNaN(seconds) || seconds < 0) {
 
@@ -109,7 +158,8 @@ const secondsToMinutesSeconds = (seconds) => {
     return `${formattedMinutes}:${formattedSeconds}`;
 };
 
-const updateSongTime = () => {
+
+updateSongTime = () => {
 
     songTime.innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}
     / ${secondsToMinutesSeconds(currentSong.duration)}`;
@@ -118,7 +168,8 @@ const updateSongTime = () => {
 
 };
 
-const moveSeekbar = (cursor) => {
+
+moveSeekbar = (cursor) => {
 
     let percent = (cursor.offsetX / cursor.target.getBoundingClientRect().width) * 99;
 
@@ -128,65 +179,51 @@ const moveSeekbar = (cursor) => {
 
 };
 
-const handleHamburger = () => {
+
+handleHamburger = () => {
 
     leftSide.style.left = '0';
     leftSide.style.backgroundColor = "black";
 };
 
-const handleCloseButton = () => {
+
+handleCloseButton = () => {
 
     leftSide.style.left = '-110%'
 
 };
 
-const handleVolume = (event) => {
+
+handleVolume = (event) => {
 
     currentSong.volume = parseInt(event.target.value) / 100;
 
 };
 
 
-const handleSongs = async () => {
+loadPalyList = () => {
 
+    Array.from(card).forEach((e) => {
 
-    songList = await getSongs();
+        e.addEventListener('click', async (item) => {
 
-    const UlList = document.querySelector('.songLists').getElementsByTagName('ul')[0];
-
-    for (const song of songList) {
-
-        UlList.innerHTML = UlList.innerHTML + `
-
-         <li>
-
-            <img src="svg/music.svg" alt="music-svg">
-            <div class="song-info">
-                <div>${song.replaceAll('%20', ' ')}</div>
-                
-            </div>
-
-            <div class="library-play-icon">
-                <img src="svg/song-play.svg" alt="song-play">
-            </div>
-
-        </li> `;
-
-    }
-
-    playMusic(songList[0], true);
-
-    const liSong = document.querySelector('.songLists');
-
-    Array.from(liSong.getElementsByTagName('li')).forEach((e) => {
-
-        e.addEventListener('click', () => {
-
-            const play = e.querySelector('.song-info').firstElementChild.innerHTML.trim();
-            playMusic(play);
+            songList = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
 
         });
+
     });
+
+};
+
+
+
+handleSongs = async () => {
+
+
+    await getSongs('songs/ArijitSingh');
+    playMusic(songList[0], true);
+
+
 
     togglePlay.addEventListener('click', handlePlayPause);
     togglePrevious.addEventListener('click', handlePreviousSong);
@@ -197,6 +234,7 @@ const handleSongs = async () => {
     closeBtn.addEventListener('click', handleCloseButton);
     volumeRange.getElementsByTagName('input')[0].addEventListener('change', handleVolume);
 
+    loadPalyList();
 };
 
 handleSongs();
