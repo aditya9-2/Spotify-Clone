@@ -346,25 +346,43 @@ body {
 .seek-bar {
     width: 98%;
     right: 11px;
-    height: 2px;
+    height: 4px;
     position: absolute;
     bottom: 5rem;
     background: #878484;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .circle {
-    width: 13px;
-    height: 13px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background-color: #878484;
     position: relative;
-    bottom: 6px;
+    bottom: 5px;
     left: 0%;
     transition: left 0.5s;
 
 }
 
+.info-bar {
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.song-information,
+.song-time {
+    color: var(--text-color);
+    max-width: 102px;
+    min-width: 102px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 
 
