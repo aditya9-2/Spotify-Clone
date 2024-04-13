@@ -1,4 +1,12 @@
-let currentSong;
+let currentSong = new Audio();
+
+const togglePrevious = document.getElementById('sprevious');
+const togglePlay = document.getElementById('splay');
+const toggleNext = document.getElementById('snext');
+const songInformation = document.querySelector('.song-information');
+const songTime = document.querySelector('.song-time');
+const seekbar = document.querySelector('.seek-bar');
+const seekbarCircle = document.querySelector('.circle');
 
 const getSongs = async () => {
 
@@ -24,9 +32,65 @@ const getSongs = async () => {
     return tracks;
 };
 
-const playMusic = (audioTrack) => {
-    const audio = new Audio("/songs/" + audioTrack);
-    // audio.play();
+const playMusic = (audioTrack, pause = false) => {
+
+    currentSong.src = "/songs/" + audioTrack;
+
+    if (!pause) {
+
+        currentSong.play();
+        togglePlay.src = "svg/song-pause.svg";
+    }
+
+    songInformation.innerHTML = decodeURI(audioTrack);
+
+    songTime.innerHTML = '00:00 / 00:00';
+
+
+};
+
+const handlePlayPause = () => {
+
+    if (currentSong.paused) {
+
+        currentSong.play();
+        togglePlay.src = "svg/song-pause.svg";
+    }
+    else {
+
+        currentSong.pause();
+        togglePlay.src = "svg/song-play.svg";
+    }
+
+};
+
+const secondsToMinutesSeconds = (seconds) => {
+
+    if (isNaN(seconds) || seconds < 0) {
+
+        return "00:00";
+    }
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedMinutes}:${formattedSeconds}`;
+};
+
+const updateSongTime = () => {
+
+    songTime.innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}
+    /${secondsToMinutesSeconds(currentSong.duration)}`;
+
+    seekbarCircle.style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+
+};
+
+const moveSeekbar = (cursor) => {
+
+    seekbarCircle.style.left = (cursor.offsetX / cursor.target.getBoundingClientRect().width) * 100 + "%";
 
 };
 
@@ -34,7 +98,6 @@ const handleSongs = async () => {
 
 
     const songList = await getSongs();
-    console.log(songList);
 
     const UlList = document.querySelector('.songLists').getElementsByTagName('ul')[0];
 
@@ -58,6 +121,8 @@ const handleSongs = async () => {
 
     }
 
+    playMusic(songList[0], true);
+
     const liSong = document.querySelector('.songLists');
     Array.from(liSong.getElementsByTagName('li')).forEach((e) => {
 
@@ -66,6 +131,11 @@ const handleSongs = async () => {
             playMusic(play);
         });
     });
+
+    togglePlay.addEventListener('click', handlePlayPause);
+    currentSong.addEventListener('timeupdate', updateSongTime);
+    seekbar.addEventListener('click', moveSeekbar);
+
 
 };
 
