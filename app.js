@@ -1,5 +1,7 @@
 let currentSong = new Audio();
+let songList;
 
+const leftSide = document.querySelector('.left');
 const togglePrevious = document.getElementById('sprevious');
 const togglePlay = document.getElementById('splay');
 const toggleNext = document.getElementById('snext');
@@ -7,6 +9,8 @@ const songInformation = document.querySelector('.song-information');
 const songTime = document.querySelector('.song-time');
 const seekbar = document.querySelector('.seek-bar');
 const seekbarCircle = document.querySelector('.circle');
+const hamburger = document.querySelector('#hamburger-img');
+const closeBtn = document.querySelector('#close-icon');
 
 const getSongs = async () => {
 
@@ -64,6 +68,31 @@ const handlePlayPause = () => {
 
 };
 
+
+const handlePreviousSong = () => {
+
+    let index = songList.indexOf(currentSong.src.split('/').slice(-1)[0]);
+
+    if ((index - 1) >= 0) {
+
+        playMusic(songList[index - 1])
+    }
+
+};
+
+const handleNextSong = () => {
+
+    currentSong.pause();
+    let index = songList.indexOf(currentSong.src.split('/').slice(-1)[0]);
+
+    if ((index + 1) < songList.length) {
+
+        playMusic(songList[index + 1])
+    }
+
+
+};
+
 const secondsToMinutesSeconds = (seconds) => {
 
     if (isNaN(seconds) || seconds < 0) {
@@ -82,22 +111,39 @@ const secondsToMinutesSeconds = (seconds) => {
 const updateSongTime = () => {
 
     songTime.innerHTML = `${secondsToMinutesSeconds(currentSong.currentTime)}
-    /${secondsToMinutesSeconds(currentSong.duration)}`;
+    / ${secondsToMinutesSeconds(currentSong.duration)}`;
 
-    seekbarCircle.style.left = (currentSong.currentTime / currentSong.duration) * 100 + "%";
+    seekbarCircle.style.left = (currentSong.currentTime / currentSong.duration) * 99 + "%";
 
 };
 
 const moveSeekbar = (cursor) => {
 
-    seekbarCircle.style.left = (cursor.offsetX / cursor.target.getBoundingClientRect().width) * 100 + "%";
+    let percent = (cursor.offsetX / cursor.target.getBoundingClientRect().width) * 99;
+
+    seekbarCircle.style.left = percent + "%";
+
+    currentSong.currentTime = ((currentSong.duration) * percent) / 100;
 
 };
+
+const handleHamburger = () => {
+
+    leftSide.style.left = '0';
+    leftSide.style.backgroundColor = "black";
+};
+
+const handleCloseButton = () => {
+
+    leftSide.style.left = '-110%'
+
+};
+
 
 const handleSongs = async () => {
 
 
-    const songList = await getSongs();
+    songList = await getSongs();
 
     const UlList = document.querySelector('.songLists').getElementsByTagName('ul')[0];
 
@@ -124,18 +170,24 @@ const handleSongs = async () => {
     playMusic(songList[0], true);
 
     const liSong = document.querySelector('.songLists');
+
     Array.from(liSong.getElementsByTagName('li')).forEach((e) => {
 
-        e.addEventListener('click', (element) => {
+        e.addEventListener('click', () => {
+
             const play = e.querySelector('.song-info').firstElementChild.innerHTML.trim();
             playMusic(play);
+
         });
     });
 
     togglePlay.addEventListener('click', handlePlayPause);
+    togglePrevious.addEventListener('click', handlePreviousSong);
+    toggleNext.addEventListener('click', handleNextSong);
     currentSong.addEventListener('timeupdate', updateSongTime);
     seekbar.addEventListener('click', moveSeekbar);
-
+    hamburger.addEventListener('click', handleHamburger);
+    closeBtn.addEventListener('click', handleCloseButton);
 
 };
 
