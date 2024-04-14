@@ -15,6 +15,7 @@ const hamburger = document.querySelector('#hamburger-img');
 const closeBtn = document.querySelector('#close-icon');
 const volumeRange = document.querySelector('.range');
 const card = document.getElementsByClassName('card');
+const volumeImage = document.querySelector('#volume-img');
 
 
 getSongs = async (folder) => {
@@ -80,6 +81,21 @@ getSongs = async (folder) => {
 
 
     return songList;
+};
+
+
+loadPalyList = () => {
+
+    Array.from(card).forEach((e) => {
+
+        e.addEventListener('click', async (item) => {
+
+            songList = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+
+        });
+
+    });
+
 };
 
 
@@ -200,29 +216,32 @@ handleVolume = (event) => {
 
 };
 
+handleMuteUnmute = (event) => {
 
-loadPalyList = () => {
+    if (event.target.src.includes('svg/volume.svg')) {
 
-    Array.from(card).forEach((e) => {
+        event.target.src = event.target.src.replace('svg/volume.svg', 'svg/mute.svg');
+        currentSong.volume = 0;
+        volumeRange.getElementsByTagName('input')[0].value = 0;
+    }
+    else {
 
-        e.addEventListener('click', async (item) => {
+        event.target.src = event.target.src.replace('svg/mute.svg', 'svg/volume.svg');
+        currentSong.volume = .50;
+        volumeRange.getElementsByTagName('input')[0].value = 50;
 
-            songList = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
-
-        });
-
-    });
+    }
 
 };
 
 
-
-handleSongs = async () => {
+handleApp = async () => {
 
 
     await getSongs('songs/ArijitSingh');
     playMusic(songList[0], true);
 
+    loadPalyList();
 
 
     togglePlay.addEventListener('click', handlePlayPause);
@@ -233,8 +252,9 @@ handleSongs = async () => {
     hamburger.addEventListener('click', handleHamburger);
     closeBtn.addEventListener('click', handleCloseButton);
     volumeRange.getElementsByTagName('input')[0].addEventListener('change', handleVolume);
+    volumeImage.addEventListener('click', handleMuteUnmute);
 
-    loadPalyList();
+
 };
 
-handleSongs();
+handleApp();
