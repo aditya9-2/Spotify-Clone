@@ -128,6 +128,22 @@ body {
     max-height: 27vh;
     overflow: scroll;
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #101010 #000000;
+}
+
+.songLists::-webkit-scrollbar {
+    width: 10px;
+}
+
+.songLists::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+.songLists::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+    border: 2px solid #101010;
 }
 
 .songLists ul {
@@ -266,6 +282,11 @@ body {
     padding: 16px;
     height: 65vh;
     max-height: 70vh;
+    margin-bottom: 40px;
+}
+
+.Popular-artist h2 {
+    margin-bottom: 50px;
 }
 
 .card-container {
@@ -273,11 +294,24 @@ body {
     grid-template-columns: repeat(4, 1fr);
     margin: 20px 10px;
     gap: 10px;
-    /* height: 55vh; */
-    max-height: 70vh;
-    /* overflow-y: scroll; */
+    max-height: 55vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #101010 #000000;
+}
 
+.card-container::-webkit-scrollbar {
+    width: 10px;
+}
 
+.card-container::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 10px;
+    border: 2px solid #101010;
 }
 
 .card {
