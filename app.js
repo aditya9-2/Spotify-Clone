@@ -16,11 +16,13 @@ const closeBtn = document.querySelector('#close-icon');
 const volumeRange = document.querySelector('.range');
 const card = document.getElementsByClassName('card');
 const volumeImage = document.querySelector('#volume-img');
+const cardContainer = document.querySelector('.card-container');
 
 
 getSongs = async (folder) => {
 
     currentFolder = folder;
+
     const songs = await fetch(`http://127.0.0.1:5500/${folder}`);
     const response = await songs.text();
 
@@ -83,7 +85,6 @@ getSongs = async (folder) => {
     return songList;
 };
 
-
 loadPalyList = () => {
 
     Array.from(card).forEach((e) => {
@@ -95,6 +96,49 @@ loadPalyList = () => {
         });
 
     });
+
+};
+
+
+displayAlbum = async () => {
+    const songs = await fetch(`http://127.0.0.1:5500/songs`);
+    const response = await songs.text();
+
+    const div = document.createElement('div');
+    div.innerHTML = response;
+
+    const anchors = div.getElementsByTagName('a');
+
+    for (let i = 0; i < anchors.length; i++) {
+
+        const e = anchors[i];
+
+        const href = e.getAttribute('href');
+
+        if (href && href.startsWith('/songs/') && !href.endsWith('.json')) {
+
+            const folder = e.href.split('/').slice(-1)[0];
+            // Metadata of folders
+            const s = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
+            const response = await s.json();
+
+            cardContainer.innerHTML = cardContainer.innerHTML + `
+    
+                <div data-folder="${folder}" class="card">
+    
+                        <div class="play">
+                            <img class="play-btn" src="svg/play-button.svg" alt="">
+                        </div>
+    
+                        <img src="/songs/${folder}/cover.jpeg" alt="Pritam">
+                        <h3>${response.title}</h3>
+                        <p>${response.description}</p>
+    
+                </div> `;
+        }
+    }
+
+    loadPalyList();
 
 };
 
@@ -241,7 +285,9 @@ handleApp = async () => {
     await getSongs('songs/ArijitSingh');
     playMusic(songList[0], true);
 
-    loadPalyList();
+
+    displayAlbum();
+
 
 
     togglePlay.addEventListener('click', handlePlayPause);
