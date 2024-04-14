@@ -85,6 +85,25 @@ getSongs = async (folder) => {
     return songList;
 };
 
+
+playMusic = (audioTrack, pause = false) => {
+
+    currentSong.src = `/${currentFolder}/` + audioTrack;
+
+    if (!pause) {
+
+        currentSong.play();
+        togglePlay.src = "svg/song-pause.svg";
+    }
+
+    songInformation.innerHTML = decodeURI(audioTrack);
+
+    songTime.innerHTML = '00:00 / 00:00';
+
+
+};
+
+
 loadPalyList = () => {
 
     Array.from(card).forEach((e) => {
@@ -92,6 +111,7 @@ loadPalyList = () => {
         e.addEventListener('click', async (item) => {
 
             songList = await getSongs(`songs/${item.currentTarget.dataset.folder}`);
+            playMusic(songList[0]);
 
         });
 
@@ -143,22 +163,6 @@ displayAlbum = async () => {
 };
 
 
-playMusic = (audioTrack, pause = false) => {
-
-    currentSong.src = `/${currentFolder}/` + audioTrack;
-
-    if (!pause) {
-
-        currentSong.play();
-        togglePlay.src = "svg/song-pause.svg";
-    }
-
-    songInformation.innerHTML = decodeURI(audioTrack);
-
-    songTime.innerHTML = '00:00 / 00:00';
-
-
-};
 
 
 handlePlayPause = () => {
