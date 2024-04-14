@@ -358,9 +358,14 @@ body {
     /* Smooth transition for opacity */
 }
 
+.play img:hover {
+    scale: 1.02;
+}
+
 .card:hover .play img {
     opacity: 1;
     animation: .5s alternate toggle forwards;
+
 }
 
 .play-bar {
