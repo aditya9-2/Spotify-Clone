@@ -88,7 +88,7 @@ getSongs = async (folder) => {
 
 playMusic = (audioTrack, pause = false) => {
 
-    currentSong.src = `/${currentFolder}/` + audioTrack;
+    currentSong.src = `songs/${currentFolder}/` + audioTrack;
 
     if (!pause) {
 
