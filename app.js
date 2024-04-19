@@ -23,7 +23,7 @@ getSongs = async (folder) => {
 
     currentFolder = folder;
 
-    const songs = await fetch(`https://spotifylikapp.netlify.app/${folder}`);
+    const songs = await fetch(`/${folder}`);
     const response = await songs.text();
 
     const div = document.createElement('div');
