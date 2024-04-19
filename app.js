@@ -23,7 +23,7 @@ getSongs = async (folder) => {
 
     currentFolder = folder;
 
-    const songs = await fetch(`https://spotifylikapp.netlify.app/${folder}`);
+    const songs = await fetch(`/${folder}`);
     const response = await songs.text();
 
     const div = document.createElement('div');
@@ -121,7 +121,7 @@ loadPalyList = () => {
 
 
 displayAlbum = async () => {
-    const songs = await fetch(`https://spotifylikapp.netlify.app/songs`);
+    const songs = await fetch(`/songs`);
     const response = await songs.text();
 
     const div = document.createElement('div');
@@ -139,7 +139,7 @@ displayAlbum = async () => {
 
             const folder = e.href.split('/').slice(-1)[0];
             // Metadata of folders
-            const s = await fetch(`https://spotifylikapp.netlify.app/songs/${folder}/info.json`);
+            const s = await fetch(`/songs/${folder}/info.json`);
             const response = await s.json();
 
             cardContainer.innerHTML = cardContainer.innerHTML + `
